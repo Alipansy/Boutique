@@ -3,9 +3,10 @@
 namespace App\Controller;
 use App\Entity\Produit;
 use App\Repository\ProduitRepository;
-use Symfony\Component\HttpFoundation\Request; // Correction ici
+use App\Repository\CommandeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request; // Correction ici
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AppController extends AbstractController
@@ -20,4 +21,13 @@ public function cart(ProduitRepository $repo, Request $request): Response
         'produit' => $produits
     ]);
 }
+#[Route("/main/profil", name:"profil")]
+    public function profil(CommandeRepository $repo)
+    {
+        $commandes = $repo->findBy(['user' => $this->getUser()]);
+
+        return $this->render("main/profil.html.twig", [
+            'commandes' => $commandes
+        ]);
+    }
 }

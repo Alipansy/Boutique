@@ -23,11 +23,11 @@
 							<td>{{ item.produit.titre }}</td>
 							<td>{{ item.produit.prix }}</td>
 							<td>
-								<a href="{{path('cart_minus', {id: item.produit.id}) }}" >-</a> {{ item.quantite }} 
-                                <a href="{{path('cart_add', {id: item.produit.id}) }}">+</a>
+								<a href="{{path('cart_minus', {id: item.produit.id}) }}"class="btn btn-light" >-</a> {{ item.quantite }} 
+                                <a href="{{path('cart_add', {id: item.produit.id}) }}" class="btn btn-light" >+</a>
 									<td>{{ item.quantite * item.produit.prix }}€</td>
 										
-									<td><a href="{{ path('cart_remove', {id: item.produit.id}) }}" class="btn-sm btn-danger">X</a></td>
+									<td><a href="{{ path('cart_remove', {id: item.produit.id}) }}" class="fas fa-trash"></a></td>
 								</tr>
 							{% endfor %}
 						</tr>
@@ -37,8 +37,14 @@
 			<h5 class="text-center">Total :
 				{{ montant }}
 				€</h5>
+                {% if app.user %}
+                
                  <a href= "{{path('app_commande')}}" class="btn btn-secondary text-center">Passer la commande</a>
-		</div>
+                </div>
+                {% else %}
+                    <p>Veuillez vous <a href="{{path('app_login')}}">connecter</a> pour pouvoir commander</p>
+                    <a href="{{path('register')}}">Vous n'êtes pas inscrit ?</a>
+                    {% endif %}
 	{% else %}
 		<p class="text-center">Le panier est vide</p>
 	{% endif %}

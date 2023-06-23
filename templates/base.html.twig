@@ -23,25 +23,23 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="{{path('home')}}">Home
+          <a class="nav-link active" href="{{path('home')}}">Accueil
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Accueil</a>
+          <a class="nav-link" href="#"></a>
         </li>
-        {% if app.user %}
         <li class="nav-item">
-          {# <a class="nav-link" href="{{path('app_cart') }} ">Panier #}
+          <a class="nav-link position-relative" href="{{path('app_cart') }} ">Panier
           {% if app.session.get('qt') %}
     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-3">
         {{ app.session.get('qt') }}
     </span>
 {% endif %}</a>
         </li>
-        {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href="#">Profil</a>
+          <a class="nav-link" href="{{path('profil')}}">Profil</a>
         </li>
                 {% if is_granted('ROLE_ADMIN') %}
 
@@ -59,6 +57,11 @@
     </div>
   </div>
 </nav>
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success text-center">
+        {{ message }}
+    </div>
+{% endfor %}
         {% block body %}
         <h1 class="text-center mt-5">Les potis tee-shirt</h1>
         <div class="container">
@@ -69,11 +72,13 @@
    
         <div class="col-md-3 mt-3 px-2">
             <div class="card  p-3" >
-                <img class="img-fluid" src="{{item.photo}}" alt="">
+                <img class="img-fluid" src="{{ asset("photos/" ~ item.photo)}}" alt="">
                 <div class="card-body">
                     <h5 class="card-title">{{item.titre}}</h5>
                     
-                    <p class="card-text">{{ item.description|striptags}}</p>
+
+                    <p class="card-text">{{ item.description|striptags}}</p> 
+                    <h3 class="card-title">{{item.prix}}€</h3>
                 </div>
                 <div class="text-center my-3">
 							<a href="{{path('cart_add', {id: item.id}) }}" class="btn btn-primary">ajouter au panier</a>
