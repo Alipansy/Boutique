@@ -1,1 +1,1 @@
-postdeploy: php bin/console doctrine:schema:update --complete
+postdeploy: php bin/console doctrine:schema:update --update
