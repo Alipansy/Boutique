@@ -48,20 +48,16 @@ class CartController extends AbstractController
         }
         $session->set('cart', $cart);
         $session->set('qt', $qt);
-        // dd($session->get('cart'));
-        return $this->render('app_cart');
+        return $this->redirectToRoute('app_cart');
     }
     
     #[Route('/cart/minus/{id}', name:'cart_minus')]
     public function minus($id, RequestStack $rs)
     {
-        //nous récupérons ou créons la session grâce à nla classe request stack (service)
         $session = $rs->getSession();
         $cart = $session->get('cart', []);
         $qt= $session->get('qt',0); 
 
-        // va me chercher l'indice cart dans la session, si elle n'existe pas, creer la, je recupere la session 'cart'
-        //dans mon tableau $cart, à la case $id, je donne la valeur 1
         if(!empty($cart[$id]) && $cart[$id] > 1)
         {
             $cart[$id]--;
@@ -69,14 +65,23 @@ class CartController extends AbstractController
         }else
         {
             unset($cart[$id]);
-        //  return $this->redirectToRoute('cart_remove');
         }
         
        
         $session->set('cart', $cart); 
-        //je sauvegarde l'etat de mon panier à l'attribut de session 'cart'
 
-        // dd($session->get('cart'));
         return $this->redirectToRoute('app_cart');
+    }
+    #[Route('/cart/remove/{id}', name : 'cart_remove')]
+    public function remove($id) : Response
+    {
+        $session = $rs->getSession();
+
+        $cart = $session->get('cart', []);
+
+        unset($cart[$id]);
+
+        return $this->redirectToRoute('app_cart');
+
     }
 }

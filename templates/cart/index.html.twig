@@ -27,7 +27,7 @@
                                 <a href="{{path('cart_add', {id: item.produit.id}) }}">+</a>
 									<td>{{ item.quantite * item.produit.prix }}€</td>
 										
-									{# <td><a href="{{ path('product_remove', {id: item.produit.id}) }}" class="btn-sm btn-danger">X</a></td> #}
+									<td><a href="{{ path('cart_remove', {id: item.produit.id}) }}" class="btn-sm btn-danger">X</a></td>
 								</tr>
 							{% endfor %}
 						</tr>
@@ -37,6 +37,7 @@
 			<h5 class="text-center">Total :
 				{{ montant }}
 				€</h5>
+                 <a href= "{{path('app_commande')}}" class="btn btn-secondary text-center">Passer la commande</a>
 		</div>
 	{% else %}
 		<p class="text-center">Le panier est vide</p>

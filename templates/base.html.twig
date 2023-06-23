@@ -73,10 +73,10 @@
                 <div class="card-body">
                     <h5 class="card-title">{{item.titre}}</h5>
                     
-                    <p class="card-text">{{ item.description|slice(0, 100)}}</p>
+                    <p class="card-text">{{ item.description|striptags}}</p>
                 </div>
                 <div class="text-center my-3">
-							<a href="{{path('app_cart', {id: item.id}) }}" class="btn btn-primary">ajouter au panier</a>
+							<a href="{{path('cart_add', {id: item.id}) }}" class="btn btn-primary">ajouter au panier</a>
 						</div>
             </div>
         </div>
