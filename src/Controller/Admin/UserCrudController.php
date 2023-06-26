@@ -22,8 +22,6 @@ class UserCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
             ChoiceField::new('role')->setChoices([
                 'ROLE_ADMIN' =>'ROLE_ADMIN',
                 'ROLE_USER' => 'ROLE_USER',
