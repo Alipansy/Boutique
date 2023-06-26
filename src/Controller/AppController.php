@@ -16,7 +16,7 @@ class AppController extends AbstractController
 public function cart(ProduitRepository $repo, Request $request): Response
 {
     $produits = $repo->findAll();
-    dump($produits);
+    
     return $this->render('base.html.twig', [
         'produit' => $produits
     ]);
